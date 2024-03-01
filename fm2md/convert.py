@@ -1,4 +1,4 @@
-from StringIO import StringIO
+from io import StringIO
 import codecs
 import os
 from string import Template
@@ -45,11 +45,11 @@ class FileWriter():
 
     def write_chapters(self):
         for number, chapter in enumerate(self.chapters):
-            with codecs.open(os.path.join(self.target_dir, 'manuscript', 'Chapter%d.txt' % number), 'w', encoding='utf8') as ofile:
+            with codecs.open(os.path.join(self.target_dir, 'manuscript', 'Chapter%d.md' % number), 'w', encoding='utf8') as ofile:
                 ofile.write(chapter)
-        with open(os.path.join(self.target_dir, 'manuscript', 'Book.txt'),'w') as ofile:
+        with open(os.path.join(self.target_dir, 'manuscript', 'Book.md'),'w') as ofile:
             for i in range(len(self.chapters)):
-                ofile.write('Chapter%d.txt\n' % i)
+                ofile.write('Chapter%d.md\n' % i)
 
     def close(self):
         self.process_images()
@@ -99,7 +99,7 @@ class Converter():
 
     def convert_node_contents(self, depth, node):
         if node.get('TEXT'):
-            self.formatter.append_text('\n\n%s%s\n\n' % (depth * '#', node.get('TEXT')))
+            self.formatter.append_text('%s %s\n\n' % (depth * '#', node.get('TEXT')))
         if node.get('LINK'):
             width = self.get_attribute(node, 'width')
             self.formatter.add_image(node.get('LINK'), width) # TODO: add title (caption)

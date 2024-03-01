@@ -39,5 +39,5 @@ virtualenv --python python2 ~/pyenv2
 source ~/pyenv2/bin/activate
 pip install html2text
 pip install lxml
-./convert-map-to-blog.py <file.md>
+./convert-map-to-blog.py <file.mm>
 ```
